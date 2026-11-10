@@ -32,6 +32,7 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
             this.description = description;
         }
         
-        
+        public String getDisplayName() {return displayName;}
+        public String getDescription() {return description;}
     }
 }

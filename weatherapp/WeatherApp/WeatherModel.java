@@ -35,4 +35,23 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
         public String getDisplayName() {return displayName;}
         public String getDescription() {return description;}
     }
+    
+    private LocalDateTime timestamp;
+    private double temperatureCels;
+    private double humidityPercentage;
+    private double windSpeed;
+    private double airPressure;
+    private double precipitation;
+    private Condition condition;
+    private String location;
+    
+    public WeatherModel(LocalDateTime timestamp, double temperatureCels, double humidityPercentage,
+            double windSpeed, double airPressure, double precipitation, 
+            Condition condition, String locationName){
+        this.timestamp = timestamp;
+        this.temperatureCels = temperatureCels;
+        
+        
+        
+    }
 }

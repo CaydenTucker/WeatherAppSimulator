@@ -108,4 +108,17 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
     private double clamp( double value, double min, double max){
         return Math.max(min, Math.min(max, value));
     }
+    
+    // --- Getters and Setters
+    public LocalDateTime getTimestamp(){ return timestamp; }
+    public void setTimestamp(LocalDateTime timestamp){ this.timestamp = timestamp; }
+    
+    public double getHumidityPercentage(){ return humidityPercentage; }
+    public void setHumidityPercentage(double humidityPercentage){ this.humidityPercentage = humidityPercentage; }
+    
+    public double getWindSpeed() { return windSpeed; }
+    public void setWindSpeed(double windSpeed) { this.windSpeed = windSpeed; }
+    
+    public double getAirPressure(){ return humidityPercentage; }
+    public void setAirPressure(double airPressure){ this.airPressure = airPressure; }
 }

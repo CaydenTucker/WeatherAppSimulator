@@ -104,4 +104,8 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
                 + 0.00085282 * T * RH * RH - 0.00000199 * T * T * RH * RH;
         return (hiF - 32.0) * 5.0 / 9.0;
     }
+    
+    private double clamp( double value, double min, double max){
+        return Math.max(min, Math.min(max, value));
+    }
 }

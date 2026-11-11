@@ -76,4 +76,32 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
     public void setTempetatureFahr(double fahrenheit){
         this.temperatureCels = (fahrenheit - 32.0) * 5.0 / 9.0;
     }
+    
+    // --- Magnus formula for calculating Dew points in Celsius ---
+    public double getDewPoint(){
+        double a = 17.27;
+        double b = 237.7; 
+        double alpha = ((a * temperatureCels) / (b + temperatureCels)) + Math.log(humidityPercentage / 100.0);
+        return (b * alpha) / (a - alpha);
+    }
+    
+    // --- takes Celsius result and converts to Fahrenheit --- //
+    public double getdewPointFahrenheit(){
+        return (getDewPoint() * 9.0 / 5.0) + 32.0;
+    }
+    
+    // --- The National Weather Sevice heat index formula --- //
+    public double getHeatIndexCelsius(){
+        if (temperatureCels < 27.0 || humidityPercentage < 40.0){
+            return temperatureCels;
+        }
+        
+        // --- T = temperature | RH = rising humidity | hif = heat index into Fahrenheit --- //
+        double T = getTemperatureFahr();
+        double RH = humidityPercentage;
+        double hiF = -42.379 + 2.04901523 * T + 10.14333127 * RH - 0.22475541 * T * RH
+                - 0.00683783 * T * T - 0.05481717 * RH * RH + 0.00122874 * T * T * RH
+                + 0.00085282 * T * RH * RH - 0.00000199 * T * T * RH * RH;
+        return (hiF - 32.0) * 5.0 / 9.0;
+    }
 }

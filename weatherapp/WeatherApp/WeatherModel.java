@@ -121,4 +121,13 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
     
     public double getAirPressure(){ return humidityPercentage; }
     public void setAirPressure(double airPressure){ this.airPressure = airPressure; }
+    
+    public double getPrecipitation() { return precipitation; }
+    public void setPrecipitation(double precipitation) { this.precipitation = precipitation; }
+    
+    public Condition getCondition() { return condition; }
+    public void setCondition(Condition condition) { this.condition = condition; }
+    
+    public String getLocationName() { return location; }
+    public void setLocationName(String location) { this.location = location; }
 }

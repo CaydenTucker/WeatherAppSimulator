@@ -48,6 +48,9 @@ public class ClimateGenerator {
             prevPressure = previousState.getAirPressure();
         }
         
+        double humidityDrift = (random.nextDouble() - 0.5) * 4.0 - (finalTemp - targetTemp) * 0.5;
+        double finalHumidity = clamp(prevHumidity + humidityDrift, 15.0, 98.0);
+        
         
     }
 }

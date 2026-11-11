@@ -20,4 +20,34 @@ public class ClimateGenerator {
         this.temperatureVar = temperatureVar;
         this.currentTrend = 0.0;
     }
+    
+    public WeathermModel generateNextState(LocalDateTime currentTime, WeatherModel previousState, String location){
+        int hour = currentTime.getHour();
+        int month = currentTime.getMonthValue();
+        
+        double seasonalOffset = Math.sin((month - 3) * (2.0 * Math.PI / 12.0)) * temperatureVar;
+        
+        double diurnalOffset = 5.0 * Math.cos((hour - 15.0) * (2.0 * Math.PI / 24.0));
+        
+        currentTrend += (random.nextDouble() - 0.5) * 0.4;
+        currentTrend = Math.max(-3.0, Math.min(3.0, currentTrend));
+        
+        double targetTemp = baseTemperature + seasonalOffset + diurnalOffset + currentTrend;
+        
+        // --- provides transition from previouse state if available ---
+        double finalTemp = targetTemp;
+        double prevHumidity = 65.0;
+        double prevWind = 12.0;
+        double prevPressure = 1013.25;
+        double accumulatedRain = 0.0;
+        
+        if (previousState != null){
+            finalTemp = (previousState.getTemperatureCels() * 0.7) + (targetTemp * 0.3);
+            prevHumidity = previousState.getHumidityPercentage();
+            prevWind = previousState.getWindSpeed();
+            prevPressure = previousState.getAirPressure();
+        }
+        
+        
+    }
 }

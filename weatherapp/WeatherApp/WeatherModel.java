@@ -50,8 +50,11 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
             Condition condition, String locationName){
         this.timestamp = timestamp;
         this.temperatureCels = temperatureCels;
-        
-        
+        this.windSpeed = windSpeed;
+        this.airPressure = airPressure;
+        this.precipitation = precipitation;
+        this.condition = condition;
+        this.location = location;
         
     }
 }

@@ -50,11 +50,30 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
             Condition condition, String locationName){
         this.timestamp = timestamp;
         this.temperatureCels = temperatureCels;
-        this.windSpeed = windSpeed;
-        this.airPressure = airPressure;
-        this.precipitation = precipitation;
+        this.humidityPercentage = clamp(humidityPercentage, 0.0, 100.0);
+        this.windSpeed = Math.max(0.0, windSpeed);
+        this.airPressure = clamp(airPressure, 870.0, 1085.0);
+        this.precipitation = Math.max(0.0, precipitation);
         this.condition = condition;
         this.location = location;
         
+    }
+    
+    // --- Temperature Getters & Setters (Celsius & Fahrenheit) ---
+    
+    public double getTemperatureCels(){
+        return temperatureCels;
+    }
+    
+    public void setTemperatureCels(double temperatureCels){
+        this.temperatureCels = temperatureCels;
+    }
+    
+    public double getTemperatureFahr(){
+        return (temperatureCels * 9.0 / 5.0) + 32.0;
+    }
+    
+    public void setTempetatureFahr(double fahrenheit){
+        this.temperatureCels = (fahrenheit - 32.0) * 5.0 / 9.0;
     }
 }

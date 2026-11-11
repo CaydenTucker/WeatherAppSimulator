@@ -130,4 +130,35 @@ public class WeatherModel implements Serializable, Comparable<WeatherModel>{
     
     public String getLocationName() { return location; }
     public void setLocationName(String location) { this.location = location; }
+    
+    // --- Object Overides ---
+    @Override
+    public int compareTo(WeatherModel other){
+        if (this.timestamp == null || other.timestamp == null) return 0;
+        return this.timestamp.compareTo(other.timestamp);
+    }
+    
+    @Override
+    public String toString(){
+        return String.format("[%s] %s | Temp: %.1f°C (%.1f°F) | Humidity: %.1f%% | Wind: %.1f km/h | Pressure: %.1f hPa | Rain: %.2f mm",
+                timestamp, condition.getDisplayName(), temperatureCels, getTemperatureFahr(),
+                humidityPercentage, windSpeed, airPressure, precipitation);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WeatherModel that = (WeatherModel) o;
+        return Double.compare(that.temperatureCels, temperatureCels) == 0 &&
+                Double.compare(that.humidityPercentage, humidityPercentage) == 0 &&
+                Objects.equals(timestamp, that.timestamp) &&
+                condition == that.condition &&
+                Objects.equals(location, that.location);
+    }
+    
+    @Override
+    public int hashCode(){
+        return Objects.hash(timestamp, temperatureCels, humidityPercentage, condition, location);
+    }
 }

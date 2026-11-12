@@ -67,4 +67,39 @@ public class SimEngine {
             checkForSpecialEvents();
         }   
     }
+    
+    public void resetSimulation(String newLocation, double baseTemp){
+        this.selectedLocation = newLocation;
+        this.currentSimTime = LocalDateTime.now().withMinute(0).withSecond(simSpeed);
+        this.climateGenerator.setBaseTemperature(baseTemp);
+        this.weatherHistory.clear();
+        
+        this.currentState = climateGenerator.generateNextState(currentSimTime, null, selectedLocation);
+        weatherHistory.add(currentState);
+        notifyListenersTick();
+    }
+    
+    private void notifyListenersTick(){
+        for (SimListener listener : listeners){
+            listener.onTick(currentState);
+        }
+    }
+    
+    private void checkForSpecialEvent(){
+        if(currentState.getCondition() == WeatherModel.Condition.THUNDERSTORM){
+            notifyEvent("Severe thunderstorm waening issued for " + selectedLocation + "!");
+        }
+        else if (currentState.getWindSpeed() > 70.0){
+            notifyEvent("High wind advisory active! Wind speeds exceeding 70 km/h.");
+        }
+        else if (currentState.getTemperatureCels() > 38.0){
+            notifyEvent("Extreme heat advisory! Temperatures reaching dangerous levels.");
+        }
+    }
+    
+    private void notifyEvent(String description){
+        for (SimListener listener : listeners){
+            listener.onEventTriggered(description);
+        }
+    }
 }

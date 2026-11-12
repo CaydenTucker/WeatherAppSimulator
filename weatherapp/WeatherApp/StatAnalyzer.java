@@ -63,4 +63,20 @@ public class StatAnalyzer {
         if (max == stormyCount) return "Stormy";
         return "Mixed";
     }
+    
+    public String generateFullReport(){
+        if (history == null || history.isEmpty()){
+            return "No weather history available for analysis";
+        }
+        
+        double avgC = getAverageTemperatureCels(); //average Celsius
+        double avgF = (avgC * 9.0 / 5.0) + 32.0; //average Fahrenheit
+        double minC = getMinTemperatureCels(); //minimum Celsius 
+        double minF = (minC * 9.0 / 5.0) + 32.0; //minimum Fahrenheit
+        double maxC = getMaxTemperatureCels(); //maximum Celsius
+        double maxF = (maxC * 9.0 / 5.0) + 32.0; //maximum Fahrenheit
+        
+        StringBuilder sb = new StringBuilder();
+        
+    }
 }

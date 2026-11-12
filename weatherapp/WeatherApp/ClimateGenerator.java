@@ -34,7 +34,7 @@ public class ClimateGenerator {
         
         double targetTemp = baseTemperature + seasonalOffset + diurnalOffset + currentTrend;
         
-        // --- provides transition from previouse state if available ---
+        // --- provides transition from previouse state if available --- \\\
         double finalTemp = targetTemp;
         double prevHumidity = 65.0;
         double prevWind = 12.0;
@@ -51,6 +51,21 @@ public class ClimateGenerator {
         double humidityDrift = (random.nextDouble() - 0.5) * 4.0 - (finalTemp - targetTemp) * 0.5;
         double finalHumidity = clamp(prevHumidity + humidityDrift, 15.0, 98.0);
         
+        double windDrift = (random.nextDouble() - 0.5) * 4.0 - (finalTemp - targetTemp) * 0.3;
+        if (random.nextDouble() < 0.08){
+            windDrift += (random.nextDouble() * 15.0);
+        }
+        double finalWind = clamp(prevWind + windDrift, 0.0, 90.0);
         
+        double pressureDrift = (random.nextDouble() - 0.5) * 2.5;
+        double finalPressure = clamp(prevPressure + pressureDrift, 950.0, 1055.0);
+        
+        // --- Sets the final values as the new condition --- \\\
+        WeatherModel.Condition condition = evaluateCondition(finalTemp, finalHumidity, finalWind, finalPressure);
+        
+        if (condition == WeatherModel.Condition.RAINY){
+            accumulatedRain = 0.5 + random.nextDouble() * 4.5;
+        }
+        else
     }
 }

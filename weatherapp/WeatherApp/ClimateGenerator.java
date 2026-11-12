@@ -77,6 +77,22 @@ public class ClimateGenerator {
     }
     
     private WeatherModel.Condition evaluateCondition(double temp, double humidity, double pressure, double wind){
+        if (pressure <  1000.0 && humidity > 82.0 && wind > 35.0){
+            return WeatherModel.Condition.THUNDERSTORM;
+        }
+        if (humidity > 85.0 && temp <= 1.0) {
+            return WeatherModel.Condition.SNOWY;
+        }
+        if (humidity > 78.0){
+            return random.nextDouble() < 0.3 ? WeatherModel.Condition.FOGGY : WeatherModel.Condition.RAINY;
+        }
+        if (humidity > 60.0){
+            return WeatherModel.Condition.PARTLY_CLOUDY;
+        }
+        if (humidity > 40.0){
+            return WeatherModel.Condition.PARTLY_CLOUDY;
+        }
         
+        return WeatherModel.Condition.SUNNY;
     }
 }

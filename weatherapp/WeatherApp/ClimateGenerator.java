@@ -21,7 +21,7 @@ public class ClimateGenerator {
         this.currentTrend = 0.0;
     }
     
-    public WeathermModel generateNextState(LocalDateTime currentTime, WeatherModel previousState, String location){
+    public WeatherModel generateNextState(LocalDateTime currentTime, WeatherModel previousState, String location){
         int hour = currentTime.getHour();
         int month = currentTime.getMonthValue();
         
@@ -66,6 +66,17 @@ public class ClimateGenerator {
         if (condition == WeatherModel.Condition.RAINY){
             accumulatedRain = 0.5 + random.nextDouble() * 4.5;
         }
-        else
+        else if (condition == WeatherModel.Condition.THUNDERSTORM){
+             accumulatedRain = 3.0 + random.nextDouble() * 12.0;
+        }
+        else if (condition == WeatherModel.Condition.SNOWY){
+            accumulatedRain = 0.2 + random.nextDouble() * 2.0;
+        }
+        
+        return new WeatherModel(currentTime, finalTemp, finalHumidity, finalWind, finalPressure);
+    }
+    
+    private WeatherModel.Condition evaluateCondition(double temp, double humidity, double pressure, double wind){
+        
     }
 }

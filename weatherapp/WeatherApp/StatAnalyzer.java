@@ -77,6 +77,17 @@ public class StatAnalyzer {
         double maxF = (maxC * 9.0 / 5.0) + 32.0; //maximum Fahrenheit
         
         StringBuilder sb = new StringBuilder();
+        sb.append("// ==== METROROLIGICAL SIMULATION REPORT ==== //\n");
+        sb.append(String.format("Total Data Points Analyzed: %d\n", history.size()));
+        sb.append(String.format("Temperature Range: %.1f°C (%.1f°F) to %.1f°C (%.1f°F)\n", 
+                minC, minF, maxC, maxF));
+        sb.append(String.format("Average Temperature: %.1f°C (%.1f°F)\n", avgC, avgF));
+        sb.append(String.format("Average Humidity: %.1f%%\n", getAverageHumidity()));
+        sb.append(String.format("Peak Wind Gust: %.1f km/h\n", getMaxWindSpeed()));
+        sb.append(String.format("Total Cumulative Precipitation: %.2f mm\n", getTotalPrecipitation()));
+        sb.append(String.format("Dominant Weather Condition: %s\n", getDominantCondition()));
+        sb.append("==========================================");
         
+        return sb.toString();
     }
 }

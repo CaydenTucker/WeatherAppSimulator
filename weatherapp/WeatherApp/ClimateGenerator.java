@@ -73,7 +73,7 @@ public class ClimateGenerator {
             accumulatedRain = 0.2 + random.nextDouble() * 2.0;
         }
         
-        return new WeatherModel(currentTime, finalTemp, finalHumidity, finalWind, finalPressure);
+        return new WeatherModel(currentTime, finalTemp, finalHumidity, finalWind, finalPressure, accumulatedRain, condition, location);
     }
     
     private WeatherModel.Condition evaluateCondition(double temp, double humidity, double pressure, double wind){
@@ -94,5 +94,17 @@ public class ClimateGenerator {
         }
         
         return WeatherModel.Condition.SUNNY;
+    }
+    
+    private double clamp(double val, double min, double max){
+        return Math.max(min, Math.min(max, val));
+    }
+    
+    public void setBaseTemperature(double baseTemperature){
+        this.baseTemperature = baseTemperature;
+    }
+    
+    public double getBaseTemperature(){
+        return baseTemperature;
     }
 }

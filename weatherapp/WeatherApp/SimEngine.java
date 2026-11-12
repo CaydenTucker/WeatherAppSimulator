@@ -43,5 +43,28 @@ public class SimEngine {
         weatherHistory.add(currentState);
     }
     
+    public void addSimListener(SimListener listener){
+        if (listener != null){
+            listeners.add(listener);
+        }
+    }
     
+    public void removeSimListener(SimListener listener){
+        listeners.remove(listener);
+    }
+    
+    public synchronized void advanceTime(int hours){
+        for (int i = 0; i < hours; i++){
+            currentSimTime = currentSimTime.plusHours(1);
+            currentState = climateGenerator.generateNextState(currentSimTime, currentState, selectedLocation);
+            weatherHistory.add(currentState);
+            
+            if (weatherHistory.size > 720){
+                weatherHistory.remove(0);
+            }
+            
+            notifyListenersTick();
+            checkForSpecialEvents();
+        }   
+    }
 }

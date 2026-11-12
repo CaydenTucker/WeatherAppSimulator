@@ -33,5 +33,20 @@ public class StatAnalyzer {
         return history.stream().mapToDouble(WeatherModel::getTemperatureCels).min().orElse(0.0);
     }
     
+    public double getTotalPrecipitation() {
+        if (history == null || history.isEmpty()) return 0.0;
+        return history.stream().mapToDouble(WeatherModel::getPrecipitation).sum();
+    }
+    
+    public double getAverageHumidity() {
+        if (history == null || history.isEmpty()) return 0.0;
+        return history.stream().mapToDouble(WeatherModel::getHumidityPercentage).average().orElse(0.0);
+    }
+    
+    public double getMaxWindSpeed() {
+        if (history == null || history.isEmpty()) return 0.0;
+        return history.stream().mapToDouble(WeatherModel::getWindSpeed).max().orElse(0.0);
+    }
+    
     
 }

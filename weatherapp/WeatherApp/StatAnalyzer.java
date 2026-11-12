@@ -48,5 +48,9 @@ public class StatAnalyzer {
         return history.stream().mapToDouble(WeatherModel::getWindSpeed).max().orElse(0.0);
     }
     
-    
+    public String getDominantCondition(){
+        if (history == null || history.isEmpty()) return "N/A";
+        
+        
+    }
 }

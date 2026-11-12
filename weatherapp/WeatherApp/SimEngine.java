@@ -14,5 +14,34 @@ import java.util.List;
  * @author catuc
  */
 public class SimEngine {
+    private LocalDateTime currentSimTime;
+    private final ClimateGenerator climateGenerator;
+    private final List<WeatherModel> weatherHistory;
+    private WeatherModel currentState;
+    private String selectedLocation;
+    private int simSpeed;
+    private boolean isRunning;
+    
+    public interface SimListener{
+        void onTick(WeatherModel newState);
+        void onEventTriggered(String eventDescription);
+    }
+    
+    private final List<SimListener> listeners;
+    
+    public SimEngine(String initialLocation, double baseTemp){
+        this.selectedLocation = initialLocation;
+        this.currentSimTime = LocalDateTime.now().withMinute(0).withSecond(0);
+        this.climateGenerator = new ClimateGenerator(baseTemp, 12.0);
+        this.weatherHistory = new ArrayList<>();
+        this.listeners = new ArrayList<>();
+        this.simSpeed = 1000;
+        this.isRunning = false;
+        
+        // --- Initializing first stance --- \\\
+        this.currentState = climateGenerator.generateNextState(currentSimTime, null, initialLocation);
+        weatherHistory.add(currentState);
+    }
+    
     
 }

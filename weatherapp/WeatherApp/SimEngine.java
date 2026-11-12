@@ -85,7 +85,7 @@ public class SimEngine {
         }
     }
     
-    private void checkForSpecialEvent(){
+    private void checkForSpecialEvents(){
         if(currentState.getCondition() == WeatherModel.Condition.THUNDERSTORM){
             notifyEvent("Severe thunderstorm waening issued for " + selectedLocation + "!");
         }
@@ -102,4 +102,18 @@ public class SimEngine {
             listener.onEventTriggered(description);
         }
     }
+    
+    public List<WeatherModel> getWeatherHistory(){
+        return Collections.unmodifiableList(weatherHistory);
+    }
+    
+    public WeatherModel getCurrentState(){return currentState;}
+    public LocalDateTime getCurrentSimTime() { return currentSimTime; }
+    public String getSelectedLocation() { return selectedLocation; }
+    
+    public int getSimulatedSpeed() { return simSpeed; }
+    public void setSimSpeed(int simSpeed) { this.simSpeed = Math.max(100, simSpeed); }
+    
+    public boolean isRunning() { return isRunning; }
+    public void setRunning(boolean running) { isRunning = running; }
 }

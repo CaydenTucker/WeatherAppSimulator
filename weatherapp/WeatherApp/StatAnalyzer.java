@@ -51,6 +51,16 @@ public class StatAnalyzer {
     public String getDominantCondition(){
         if (history == null || history.isEmpty()) return "N/A";
         
+        long sunnyCount = history.stream().filter(w -> w.getCondition() == WeatherModel.Condition.SUNNY).count();
+        long rainyCount = history.stream().filter(w -> w.getCondition() == WeatherModel.Condition.RAINY).count();
+        long cloudyCount = history.stream().filter(w -> w.getCondition() == WeatherModel.Condition.CLOUDY).count();
+        long stormyCount = history.stream().filter(w -> w.getCondition() == WeatherModel.Condition.THUNDERSTORM).count();
         
+        long max = Math.max(Math.max(sunnyCount, rainyCount), Math.max(cloudyCount, stormyCount));
+        if (max == sunnyCount) return "Sunny";
+        if (max == rainyCount) return "Rainy";
+        if (max == cloudyCount) return "Cloudy";
+        if (max == stormyCount) return "Stormy";
+        return "Mixed";
     }
 }

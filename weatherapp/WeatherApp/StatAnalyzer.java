@@ -30,6 +30,8 @@ public class StatAnalyzer {
     
     public double getMinTemperatureCels(){
         if (history == null || history.isEmpty()) return 0.0;
-        
+        return history.stream().mapToDouble(WeatherModel::getTemperatureCels).min().orElse(0.0);
     }
+    
+    
 }

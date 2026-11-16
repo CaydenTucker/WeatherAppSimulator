@@ -40,4 +40,25 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         initComponents();
         updateDisplay(simEngine.getCurrentState());
     }
+    
+    private void initComponents(){
+        setLayout(new BorderLayout());
+        
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        topPanel.setBackground(new Color(45, 52, 54));
+        
+        JLabel lblSelectLoc = new JLabel("Location:");
+        lblSelectLoc.setForeground(Color.WHITE);
+        
+        String[] locations = {"Seattle, WA", "Miami, FL", "Denver, CO"};
+        cmbLocations = new JComboBox<>(locations);
+        cmbLocations.addActionListeners(e -> {
+           String loc = (String) cmbLocations.getSelectedItem();
+           double baseTemp = getBaseTempForLocation(loc);
+           simEngine.resetSimulation(loc, baseTemp);
+        });
+        
+        
+    }
 }

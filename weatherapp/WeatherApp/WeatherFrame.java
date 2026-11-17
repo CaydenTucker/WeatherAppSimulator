@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class WeatherFrame extends JFrame implements SimEngine.SimListener{
     private final SimEngine simEngine;
     
-    private JLabel lblLocataionTime;
+    private JLabel lblLocationTime;
     private JLabel lblConditionTitle;
     private JLabel lblTempMain;
     private JLabel lblDetailsHumidity;
@@ -59,6 +59,43 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
            simEngine.resetSimulation(loc, baseTemp);
         });
         
+        JButton btnStep1H = createStyledButton("Advance 1h");
+        btnStep1H.addActionListener(e -> simEngine.advanceTime(1));
         
+        JButton btnStep24H = createStyledButton("Advance 24h");
+        btnStep1H.addActionListener(e -> simEngine.advanceTime(24));
+        
+        JButton btnPlayPause = createStyledButton("Play / Pause");
+        btnPlayPause.addActionListener(e -> toggleAutoPlay());
+
+        JButton btnReport = createStyledButton("View Stats");
+        btnReport.addActionListener(e -> showStatisticsDialog());
+        
+        topPanel.add(lblSelectLoc);
+        topPanel.add(cmbLocations);
+        topPanel.add(btnStep1H);
+        topPanel.add(btnStep24H);
+        topPanel.add(btnPlayPause);
+        topPanel.add(btnReport);
+        
+        add(topPanel, BorderLayout.NORTH);
+        
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        centerPanel.setBackground(new Color(223, 230, 233));
+        
+        lblLocationTime = new JLabel("Location & Time", JLabel.CENTER);
+        lblLocationTime.setFont(new Font("Arial", Font.BOLD, 18));
+        lblLocationTime.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        lblLocationTime = new JLabel("Condition", JLabel.CENTER);
+        lblLocationTime.setFont(new Font("Arial", Font.BOLD, 16));
+        lblLocationTime.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        lblTempMain = new JLabel("--°C", JLabel.CENTER);
+        lblTempMain.setFont(new Font("Arial", Font.BOLD, 48));
+        lblTempMain.setForeground(Color.DARK_GRAY);
+        lblTempMain.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 }

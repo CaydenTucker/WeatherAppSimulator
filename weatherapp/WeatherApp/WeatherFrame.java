@@ -122,5 +122,33 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         centerPanel.add(metricsGrid);
         
         add (centerPanel, BorderLayout.CENTER);
+        
+        txtEventLog = new JTextArea(6, 40);
+        txtEventLog.setEditable(false);
+        txtEventLog.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        JScrollPane scrollPane = new JScrollPane(txtEventLog);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Simulation Event Log"));
+        
+        add(scrollPane, BorderLayout.SOUTH);
+        
+        autoPlayTimer = new Timer(1000, e -> simEngine.advanceTime(1));
+    }
+    
+    private JButton createStyledButton(String text){
+        JButton btn = new JButton(text);
+        btn.setBackground(new Color(9, 132, 227));
+        btn.setForeground(Color.WHITE);
+        btn.setFocusPainted(false);
+        btn.setFont(new Font("Arial", Font.BOLD, 12));
+        return btn;
+    }
+    
+    private JLabel createMetricLabel(String text){
+        JLabel lbl = new JLabel(text, JLabel.CENTER);
+        lbl.setFont(new Font("Arial", Font.BOLD, 14));
+        lbl.setOpaque(true);
+        lbl.setBackground(Color.WHITE);
+        lbl.setBorder(BorderFactory.createLineBorder(new Color(178, 190, 195)));
+        return lbl;
     }
 }

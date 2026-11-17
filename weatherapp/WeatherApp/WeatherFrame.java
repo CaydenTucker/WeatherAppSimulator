@@ -51,7 +51,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         JLabel lblSelectLoc = new JLabel("Location:");
         lblSelectLoc.setForeground(Color.WHITE);
         
-        String[] locations = {"Seattle, WA", "Miami, FL", "Denver, CO"};
+        String[] locations = {"Seattle, WA", "Miami, FL", "Denver, CO", "Southside, AL"};
         cmbLocations = new JComboBox<>(locations);
         cmbLocations.addActionListeners(e -> {
            String loc = (String) cmbLocations.getSelectedItem();
@@ -97,5 +97,30 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         lblTempMain.setFont(new Font("Arial", Font.BOLD, 48));
         lblTempMain.setForeground(Color.DARK_GRAY);
         lblTempMain.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JPanel metricsGrid = new JPanel(new GridLayout(2, 2, 15, 15));
+        metricsGrid.setBorder(new EmptyBorder(20, 50, 20, 50));
+        metricsGrid.setBackground(new Color(223, 230, 233));
+        
+        lblDetailsHumidity = createMetricLabel("Humidity: --%");
+        lblDetailsWind = createMetricLabel("Wind Speed: -- km/h");
+        lblDetailsPressure = createMetricLabel("Pressure: -- hPa");
+        lblDetailsRain = createMetricLabel("Precipitation: -- mm");
+        
+        metricsGrid.add(lblDetailsHumidity);
+        metricsGrid.add(lblDetailsWind);
+        metricsGrid.add(lblDetailsPressure);
+        metricsGrid.add(lblDetailsRain);
+        
+        centerPanel.add(lblDetailsHumidity);
+        centerPanel.add(Box.createVerticalStrut(10));
+        lblConditionTitle.setForeground(new Color(99, 110, 114));
+        centerPanel.add(lblConditionTitle);
+        centerPanel.add(Box.createVerticalStrut(15));
+        centerPanel.add(lblTempMain);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(metricsGrid);
+        
+        add (centerPanel, BorderLayout.CENTER);
     }
 }

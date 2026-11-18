@@ -151,4 +151,35 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         lbl.setBorder(BorderFactory.createLineBorder(new Color(178, 190, 195)));
         return lbl;
     }
+    
+    private double getBaseTempForLocation(String Location){
+        switch (location){
+            case "Miami, FL": return 26.0;
+            case "Denver, CO": return 10.0;
+            case "Southside, AL": return 2.0;
+            default: return 12.0;
+        }
+    }
+    
+    private void toggleAutoPlay(){
+        if (autoPlayTimer.isRunning()) {
+            autoPlayTimer.stop();
+            txtEventLog.append("[System] Auto-play simulation paused.\n");
+        } else {
+            autoPlayTimer.start();
+            txtEventLog.append("[System] Auto-play simulation started.\n");
+        }
+    }
+    
+    private void updateDisplay(WeatherModel){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy - HH:mm");
+        lblLocationTime.setText(model.getLocationName() + " | " + model.getTimestamp().format(formatter));
+        lblConditionTitle.setText(model.getCondition().getDisplayName() + " - " + model.getCondition().getDescription());
+        lblTempMain.setText(String.format("%.1f°C (%.1f°F)", model.getTemperatureCelsius(), model.getTemperatureFahrenheit()));
+        
+        lblDetailsHumidity.setText(String.format("Humidity: %.1f%%", model.getHumidityPercentage()));
+        lblDetailsWind.setText(String.format("Wind Speed: %.1f km/h", model.getWindSpeed()));
+        lblDetailsPressure.setText(String.format("Pressure: %.1f hPa", model.getAirPressure()));
+        lblDetailsRain.setText(String.format("Precipitation: %.2f mm", model.getPrecipitation()));
+    }
 }

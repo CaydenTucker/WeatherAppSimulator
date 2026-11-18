@@ -171,15 +171,27 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         }
     }
     
-    private void updateDisplay(WeatherModel){
+    private void updateDisplay(WeatherModel model){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMM d, yyyy - HH:mm");
         lblLocationTime.setText(model.getLocationName() + " | " + model.getTimestamp().format(formatter));
         lblConditionTitle.setText(model.getCondition().getDisplayName() + " - " + model.getCondition().getDescription());
-        lblTempMain.setText(String.format("%.1f°C (%.1f°F)", model.getTemperatureCelsius(), model.getTemperatureFahrenheit()));
+        lblTempMain.setText(String.format("%.1f°C (%.1f°F)", model.getTemperatureCels(), model.getTemperatureFahr()));
         
         lblDetailsHumidity.setText(String.format("Humidity: %.1f%%", model.getHumidityPercentage()));
         lblDetailsWind.setText(String.format("Wind Speed: %.1f km/h", model.getWindSpeed()));
         lblDetailsPressure.setText(String.format("Pressure: %.1f hPa", model.getAirPressure()));
         lblDetailsRain.setText(String.format("Precipitation: %.2f mm", model.getPrecipitation()));
+    }
+    
+    
+    @Override
+    public void onTick(WeatherModel newState){
+        updateDisplay(newState);
+    }
+    
+    @Override 
+    public void onEventTriggered(String eventDescription){
+        txtEventLog.append("[" + simEngine.getCurrentSimTime().toLocalTime() + "]" + eventDescription + "\n");
+        txtEventLog.setCaretPosition(txtEventLog.getDocument().getLength());
     }
 }

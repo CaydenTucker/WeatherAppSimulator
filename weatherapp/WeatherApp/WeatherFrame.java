@@ -34,7 +34,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         
         setTitle("Simulated Weather Station");
         setSize(850, 600);
-        setDefaultCloseOperation(JFRAME.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         initComponents();
@@ -53,7 +53,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         
         String[] locations = {"Seattle, WA", "Miami, FL", "Denver, CO", "Southside, AL"};
         cmbLocations = new JComboBox<>(locations);
-        cmbLocations.addActionListeners(e -> {
+        cmbLocations.addActionListener(e -> {
            String loc = (String) cmbLocations.getSelectedItem();
            double baseTemp = getBaseTempForLocation(loc);
            simEngine.resetSimulation(loc, baseTemp);
@@ -69,7 +69,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         btnPlayPause.addActionListener(e -> toggleAutoPlay());
 
         JButton btnReport = createStyledButton("View Stats");
-        btnReport.addActionListener(e -> showStatisticsDialog());
+        btnReport.addActionListener(e -> showStatDialog());
         
         topPanel.add(lblSelectLoc);
         topPanel.add(cmbLocations);
@@ -153,7 +153,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
     }
     
     private double getBaseTempForLocation(String Location){
-        switch (location){
+        switch (Location){
             case "Miami, FL": return 26.0;
             case "Denver, CO": return 10.0;
             case "Southside, AL": return 2.0;
@@ -183,7 +183,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         lblDetailsRain.setText(String.format("Precipitation: %.2f mm", model.getPrecipitation()));
     }
     
-    private void showStatisticDialog(){
+    private void showStatDialog(){
         StatAnalyzer analyzer = new StatAnalyzer(simEngine.getWeatherHistory());
         JOptionPane.showMessageDialog(this, analyzer.generateFullReport(), "Simulation Analytics", JOptionPane.INFORMATION_MESSAGE);
     }

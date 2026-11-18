@@ -183,7 +183,10 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         lblDetailsRain.setText(String.format("Precipitation: %.2f mm", model.getPrecipitation()));
     }
     
-    
+    private void showStatisticDialog(){
+        StatAnalyzer analyzer = new StatAnalyzer(simEngine.getWeatherHistory());
+        JOptionPane.showMessageDialog(this, analyzer.generateFullReport(), "Simulation Analytics", JOptionPane.INFORMATION_MESSAGE);
+    }
     @Override
     public void onTick(WeatherModel newState){
         updateDisplay(newState);

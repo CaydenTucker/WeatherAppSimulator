@@ -89,9 +89,9 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         lblLocationTime.setFont(new Font("Arial", Font.BOLD, 18));
         lblLocationTime.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        lblLocationTime = new JLabel("Condition", JLabel.CENTER);
-        lblLocationTime.setFont(new Font("Arial", Font.BOLD, 16));
-        lblLocationTime.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblConditionTitle = new JLabel("Condition", JLabel.CENTER);
+        lblConditionTitle.setFont(new Font("Arial", Font.BOLD, 16));
+        lblConditionTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         lblTempMain = new JLabel("--°C", JLabel.CENTER);
         lblTempMain.setFont(new Font("Arial", Font.BOLD, 48));

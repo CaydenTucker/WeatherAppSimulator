@@ -63,7 +63,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         btnStep1H.addActionListener(e -> simEngine.advanceTime(1));
         
         JButton btnStep24H = createStyledButton("Advance 24h");
-        btnStep1H.addActionListener(e -> simEngine.advanceTime(24));
+        btnStep24H.addActionListener(e -> simEngine.advanceTime(24));
         
         JButton btnPlayPause = createStyledButton("Play / Pause");
         btnPlayPause.addActionListener(e -> toggleAutoPlay());

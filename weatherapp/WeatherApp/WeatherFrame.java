@@ -156,7 +156,9 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         switch (Location){
             case "Miami, FL": return 26.0;
             case "Denver, CO": return 10.0;
-            case "Southside, AL": return 2.0;
+            case "Southside, AL": return 17.0;
+            case "Baton Rouge, La": return 20.0;
+            case "Seattle, Wa":
             default: return 12.0;
         }
     }

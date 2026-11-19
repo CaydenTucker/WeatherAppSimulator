@@ -51,7 +51,7 @@ public class WeatherFrame extends JFrame implements SimEngine.SimListener{
         JLabel lblSelectLoc = new JLabel("Location:");
         lblSelectLoc.setForeground(Color.WHITE);
         
-        String[] locations = {"Seattle, WA", "Miami, FL", "Denver, CO", "Southside, AL"};
+        String[] locations = {"Seattle, WA", "Miami, FL", "Denver, CO", "Southside, AL\", \"Baton Rouge, LA"};
         cmbLocations = new JComboBox<>(locations);
         cmbLocations.addActionListener(e -> {
            String loc = (String) cmbLocations.getSelectedItem();

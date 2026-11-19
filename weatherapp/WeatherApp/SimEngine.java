@@ -59,7 +59,7 @@ public class SimEngine {
             currentState = climateGenerator.generateNextState(currentSimTime, currentState, selectedLocation);
             weatherHistory.add(currentState);
             
-            if (weatherHistory.size > 720){
+            if (weatherHistory.size() > 720){
                 weatherHistory.remove(0);
             }
             
